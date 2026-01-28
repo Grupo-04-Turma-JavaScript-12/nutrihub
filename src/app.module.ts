@@ -12,7 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: 'db_nutrihub',
       entities: [],
       synchronize: true,
-      logging: true,
+      logging: false,
     }),
   ],
   controllers: [],
