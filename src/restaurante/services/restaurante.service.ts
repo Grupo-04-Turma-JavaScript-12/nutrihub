@@ -2,13 +2,14 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, ILike, Repository } from 'typeorm';
 import { Restaurante } from '../entities/restaurante.entity';
+import { Bcrypt } from '../../auth/bcrypt/bcrypt';
 
 @Injectable()
 export class RestauranteService {
   constructor(
     @InjectRepository(Restaurante)
     private restauranteRepository: Repository<Restaurante>,
-    // private bcrypt: Bcrypt,
+    private bcrypt: Bcrypt,
   ) {}
 
   async findByUsuario(usuario: string): Promise<Restaurante | null> {
@@ -57,7 +58,7 @@ export class RestauranteService {
       );
 
     // criptografar a senha antes de salvar
-    // restaurante.senha = await this.bcrypt.criptografarSenha(restaurante.senha);
+    restaurante.senha = await this.bcrypt.criptografarSenha(restaurante.senha);
 
     return await this.restauranteRepository.save(restaurante);
   }
@@ -74,9 +75,11 @@ export class RestauranteService {
       );
 
     // se a senha vier no update, recriptografar:
-    // if (restaurante.senha) {
-    //   restaurante.senha = await this.bcrypt.criptografarSenha(restaurante.senha);
-    // }
+    if (restaurante.senha) {
+      restaurante.senha = await this.bcrypt.criptografarSenha(
+        restaurante.senha,
+      );
+    }
 
     return await this.restauranteRepository.save(restaurante);
   }

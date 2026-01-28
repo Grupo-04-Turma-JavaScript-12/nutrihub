@@ -1,19 +1,23 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
+import { CategoriaModule } from './categoria/categoria.module';
+import { ProdService } from './data/services/prod.service';
+import { RefeicaoModule } from './refeição/refeicao.module';
+import { RestauranteModule } from './restaurante/restaurante.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'db_nutrihub',
-      entities: [],
-      synchronize: true,
-      logging: false,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      useClass: ProdService,
+      imports: [ConfigModule],
     }),
+    RefeicaoModule,
+    CategoriaModule,
+    RestauranteModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

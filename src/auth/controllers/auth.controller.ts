@@ -9,7 +9,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from '../guard/local-auth.guard';
 import { AuthService } from '../services/auth.service';
-import { UsuarioLogin } from './../entities/usuariologin.entity';
+import { UsuarioLogin } from './../entities/usuarioLogin.entity';
 
 @ApiTags('Usuario')
 @Controller('/usuarios')
