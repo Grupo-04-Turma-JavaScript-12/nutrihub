@@ -11,12 +11,12 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { Categoria } from '../entities/categoria.entity';
 import { CategoriaService } from '../services/categoria.service';
-import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 
-@ApiTags('Tema')
+@ApiTags('Categoria')
 @UseGuards(JwtAuthGuard)
 @Controller('/categorias')
 @ApiBearerAuth()

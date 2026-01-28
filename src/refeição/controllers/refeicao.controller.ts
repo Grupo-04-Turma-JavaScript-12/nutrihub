@@ -11,12 +11,12 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { Refeicao } from '../entities/refeicao.entity';
 import { RefeicaoService } from '../services/refeicao.service';
-import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 
-@ApiTags('Postagem')
+@ApiTags('Refeição')
 @UseGuards(JwtAuthGuard)
 @Controller('/refeicoes')
 @ApiBearerAuth()
