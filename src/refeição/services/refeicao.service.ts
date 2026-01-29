@@ -67,4 +67,19 @@ export class RefeicaoService {
     await this.findById(id);
     return await this.refeicaoRepository.delete(id);
   }
+
+  async recomendacao(): Promise<Refeicao> {
+    const total = await this.refeicaoRepository.count();
+
+    if (total === 0) {
+      throw new HttpException(
+        'Nenhuma refeição cadastrada!',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const refeicaoRecomendada = Math.floor(Math.random() * total) + 1;
+
+    return await this.findById(refeicaoRecomendada);
+  }
 }

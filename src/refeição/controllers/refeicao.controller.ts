@@ -29,6 +29,12 @@ export class RefeicaoController {
     return this.refeicaoService.findAll();
   }
 
+  @Get('/recomendacao')
+  @HttpCode(HttpStatus.OK)
+  recomendacao(): Promise<Refeicao> {
+    return this.refeicaoService.recomendacao();
+  }
+
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
   findById(@Param('id', ParseIntPipe) id: number): Promise<Refeicao> {
